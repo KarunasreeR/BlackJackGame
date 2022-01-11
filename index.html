@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Black Jack Game</title>
+    <meta name="viewport" content="width=device-width">
+    <style>
+        body {
+            background: url('bg.png');
+            background-size: cover;
+        }
+
+        .container {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        h1 {
+            color: goldenrod;
+            text-shadow: 2px 2px black;
+        }
+
+        button {
+            color: #016f32;
+            width: 150px;
+            background: goldenrod;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            font-weight: bold;
+            border: none;
+            border-radius: 2px;
+            margin-bottom: 2px;
+            margin-top: 2px;
+        }
+
+        button:hover {
+            background: rgb(167, 123, 13);
+        }
+
+        button:active {
+            border: 2px solid grey;
+        }
+        #p1{
+            font-size: 22px;
+        }
+
+        p {
+            font-weight: bold;
+            font-style: italic;
+            color: white;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="giffy">
+            <h1>Blackjack Game</h1>
+            <figure>
+                <img src="1.gif">
+            </figure>
+        </div>
+        <div class="mainContent">
+            <p id="p1">Start with Game!</p>
+            <p id="p2">Cards : </p>
+            <p id="p3">Sum : </p>
+            <button id="start-btn" class="btn btn-primary" onclick="startGame()">START GAME</button>
+            <button id="new-btn" class="btn btn-primary" onclick="newCard()">NEW CARD</button>
+        </div>
+    </div>
+    <script>
+        let cards = []
+        let p1 = document.getElementById("p1");
+        let p2 = document.getElementById("p2");
+        let p3 = document.getElementById("p3");
+        let sum = 0;
+        function getRandomCard() {
+            c = (Math.floor(Math.random() * 13)) + 1;
+            if (c > 10) {
+                return 10;
+            }
+            else if(c===1){
+                return 11;
+            }
+            else {
+                return c
+            }
+        }
+        function startGame() {
+            cards = [];
+            let card1 = getRandomCard();
+            let card2 = getRandomCard();
+            cards.push(card1);
+            cards.push(card2);
+            continueGame();
+        }
+        function continueGame() {
+            sum = 0;
+            p2.textContent = " Cards : ";
+            for (let i in cards) {
+                sum += cards[i];
+                p2.textContent += ` ${cards[i]}`;
+            }
+
+            p3.textContent = `Sum : ${sum}`;
+            if (sum > 21) {
+                p1.textContent = `Game Over!`;
+            }
+            else if (sum === 21) {
+                p1.textContent = `Hoo!You got Black Jack`;
+            }
+            else {
+                p1.textContent = `Do You wanna draw new Card?`;
+            }
+        }
+        function newCard() {
+            if (sum < 21) {
+                card3 = getRandomCard();
+                cards.push(card3);
+                continueGame();
+            }
+        }
+    </script>
+</body>
+
+</html>
